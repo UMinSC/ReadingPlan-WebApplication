@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>Regist Page</title>
+	<script src="../static/js/script.js" th:src="@{/js/script.js}"></script>
+	<link rel="stylesheet" type="text/css" media="all" href="../static/css/mycss.css" th:href="@{/css/mycss.css}" />
+</head>
+
+<body>
+	<!-- header_________________________________________________________ -->
+	<header th:insert="fragments/header.html :: header"></header>
+	<!-- 
+		main_________________________________________________________
+	-->
+	<main>
+		<h2>Register Here!</h2>
+		<div id="error" class="error"></div>
+		<section>
+			<form name="form" action="#" th:action="@{/register}" method="post" onsubmit="return verify()">
+				<div class="form-group">
+					<label for="username">Username:</label>
+					<input type="text" id="username" name="username" />
+				</div>
+				<div class="form-group">
+					<label for="email">Email:</label>
+					<input type="email" id="email" name="email" />
+				</div>
+				<div class="form-group">
+					<label for="password">Password:</label>
+					<input type="password" id="password" name="password" />
+				</div>
+				<div class="form-group">
+					<label for="verifyPassword">Verify Password:</label>
+					<input type="password" id="verifyPassword" name="verifyPassword" />
+				</div>
+				<div class="buttons">
+					<input type="submit" value="Register">
+				</div>
+			</form>
+		</section>
+	</main>
+	<!-- 
+		footer_________________________________________________________
+	-->
+	<footer th:replace="fragments/footer.html :: footer"></footer>
+</body>
+
+</html>

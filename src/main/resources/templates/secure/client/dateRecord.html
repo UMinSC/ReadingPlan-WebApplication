@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>Date Record</title>
+</head>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="../static/js/script.js" th:src="@{/js/script.js}"></script>
+<link rel="stylesheet" type="text/css" media="all" href="../static/css/mycss.css" th:href="@{/css/mycss.css}" />
+<body>
+	<header th:insert="fragments/header.html :: header"></header>
+	<main>
+	<p>&#x1F4C5; <span class="date-year" th:text="${setDate.year}"></span>
+		<span class="date-month" th:text="${setDate.month}"></span>
+		<span class="date-day" th:text="${setDate.dayOfMonth}"></span>
+	</p>
+	<table class="book-table">
+		<thead>
+			<tr>
+				<th>Book </th>
+				<th>Pages</th>
+				<th>Reading Process</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="bookRecord, iterStat : ${bookListByDate}">
+				<td th:text="${bookRecord.title}"></td>
+				<td th:text="${bookRecord.recordPage} + '/' + ${bookRecord.totalPage}"></td>
+				<td>
+					<canvas th:id="'myChart-' + ${iterStat.index}" width="100" height="20"></canvas>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	</main>
+	<footer th:replace="fragments/footer.html :: footer"></footer>
+</body>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var canvases = document.querySelectorAll('canvas');
+
+    canvases.forEach(function(canvas) {
+        var ctx = canvas.getContext('2d');
+
+        // 从当前 Canvas 元素的父级获取 recordPage 和 totalPage 的值
+        var recordPage = parseFloat(canvas.parentElement.previousElementSibling.textContent.split('/')[0].trim());
+        var totalPage = parseFloat(canvas.parentElement.previousElementSibling.textContent.split('/')[1].trim());
+
+        var percentage = (recordPage / totalPage) * 100;
+        var remainingPercentage = 100 - percentage;
+
+        var data = {
+            labels: ['Current Page', 'Remaining Pages'],
+            datasets: [{
+                data: [percentage, remainingPercentage],
+                backgroundColor: [
+                    'rgba(54, 162, 235, 0.2)', // 彩色短长方形的颜色
+                    'rgba(200, 200, 200, 0.2)' // 灰色长方形的颜色
+                ],
+                borderColor: [
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(200, 200, 200, 1)'
+                ],
+                borderWidth: 1
+            }]
+        };
+
+        var options = {
+            indexAxis: 'y',
+            scales: {
+                x: {
+                    stacked: true, // 通过堆叠显示条形图
+                    display: false
+                },
+                y: {
+                    stacked: false, // 通过堆叠显示条形图
+                    display: false
+                }
+            },
+            plugins: {
+                legend: {
+                    display: false // 不显示图例
+                }
+            }
+        };
+
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: data,
+            options: options
+        });
+    });
+});
+
+
+</script>
+
+</html>

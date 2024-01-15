@@ -1,0 +1,49 @@
+<head>
+	<meta charset="UTF-8">
+	<title>Login Page</title>
+	<link rel="stylesheet" type="text/css" media="all" href="../static/css/mycss.css" th:href="@{/css/mycss.css}" />
+</head>
+
+<body>
+	
+	<header th:insert="fragments/header.html :: header"></header>
+	<!-- 
+		main_________________________________________________________
+	-->
+	<main>
+		<h2>Login Here！</h2>
+		<!-- Form Error Handling -->
+		<div th:if="${param.error}">
+			<div class="error"> Invalid credentials </div>
+		</div>
+		<!-- Logout Handling -->
+		<div th:if="${param.logout}">
+			<div class="success"> You have been logged out </div>
+		</div>
+		<!-- section that posts to login -->
+		<section>
+			<form method="post" th:action="@{/login}">
+				<!-- User Credentials Form -->
+				<div class="form-group">
+					<label for="username">Username:</label><input type="username" name="username" />
+				</div>
+				<div class="form-group">
+					<label for="password">Password:</label>
+					<input type="password" name="password" />
+				</div>
+				<div class="buttons">
+					<input type="submit" value="Log In" name="login-submit" />
+				</div>
+			</form>
+		</section>
+		<section>
+			<p  class="buttons">New here? Please <span><a th:href="@{/register}">register</a> </span> here.</p>
+		</section>
+	</main>
+	<!-- 
+		footer_________________________________________________________
+	-->
+	<footer th:replace="fragments/footer.html :: footer"></footer>
+</body>
+
+</html>

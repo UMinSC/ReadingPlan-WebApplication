@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>Book Detail</title>
+	<script src="../../../static/js/script.js" th:src="@{/js/script.js}"></script>
+	<link rel="stylesheet" type="text/css" media="all" href="../static/css/mycss.css" th:href="@{/css/mycss.css}" />
+</head>
+
+<body>
+	<!-- 
+		header_________________________________________________________
+	-->
+	<header th:insert="fragments/header.html :: header"></header>
+	<!-- 
+		main_________________________________________________________
+	-->
+	<main>
+		<h2>Book Edit</h2>
+		<div id="error" class="error"></div>
+		<div th:if="${successMessage}">
+			<div id="success" th:text="${successMessage}" class="success"></div>
+		</div>
+		<!-- section -->
+		<section>
+			<h3 th:text="${book.title}"> book name </h3>
+			<img th:if="${(book.id != null && book.id > 0)}" th:src="@{/}+${book.imagePath}" th:alt="${book.title} + '-Cover'">
+			<form name="bookForm" method="post" action="#" th:action="@{/admin/insertBook}" th:object="${book}"
+				onsubmit="return checkBookData()">
+				<input type="hidden" name="id" th:field="*{id}" />
+				<div class="form-group">
+					<label for="title">Title:</label>
+					<input type="text" id="title" name="title" th:field="*{title}" />
+				</div>
+				<div class="form-group">
+					<label for="author">Author:</label>
+					<input type="text" id="author" name="author" th:field="*{author}" />
+				</div>
+				<div class="form-group">
+					<label for="isbn">ISBN:</label>
+					<input type="text" id="isbn" name="isbn" th:field="*{isbn}" />
+				</div>
+				<div class="form-group">
+					<label for="price">Price:</label>
+					<input type="number" id="price" name="price" th:field="*{price}" step="0.01" />
+				</div>
+				<div class="form-group">
+					<label for="description">Description:</label>
+					<textarea id="description" name="description" th:field="*{description}"></textarea>
+				</div>
+				<div class="form-group">
+					<label for="price">PageNumber:</label>
+					<input type="number" id="totalPage" name="totalPage" th:field="*{totalPage}" min="1"/>
+				</div>
+				<input type="hidden" name="imagePath" th:field="*{imagePath}" />
+				<div class="buttons">
+					<input type="submit" th:value="${(book.id != null && book.id > 0) ? 'Update' : 'Add a new book'}" />
+				</div>
+			</form>
+			
+			<div class="buttons">
+			<a th:href="@{/}">Back to Library</a>
+			</div>
+			<hr><br>
+			<br>
+		</section>
+	</main>
+	<!-- 
+		footer_________________________________________________________
+	-->
+	<footer th:replace="fragments/footer.html :: footer"></footer>
+</body>
+
+</html>

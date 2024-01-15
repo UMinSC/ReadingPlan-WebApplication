@@ -1,0 +1,24 @@
+<div th:fragment="header" class="header">
+	<div class="header">
+    <div class="logo">
+		<a href="/">
+        <img src="../static/images/bookplan-logo.png" th:src="@{/images/bookplan-logo3.png}" alt="Bookstore Logo" />
+		</a>
+    </div>
+    <div class="header-content">
+        <h1>My Reading Plan<span sec:authorize="hasRole('ADMIN')"> - adminVersion</span></h1>
+        <p>Hi there! Every book is a journey.</p>
+    </div>
+</div>
+	<div class="user-actions">
+		
+		<div sec:authorize="isAuthenticated()">
+			
+			<div class="buttonsWithoutFrame"> &#128100;<span sec:authentication="name"></span>
+			</div>
+			<form method="get" action="#" th:action="@{/logout}">
+				<input type="submit" value="Logout" />
+			</form>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User Reading Plan</title>
+    <script src="../static/js/script.js" th:src="@{/js/script.js}"></script>
+    <link rel="stylesheet" type="text/css" media="all" href="../static/css/mycss.css" th:href="@{/css/mycss.css}" />
+</head>
+<body>
+	<header th:insert="fragments/header.html :: header"></header>
+   <main>
+    <h1><span sec:authentication="name">’s Book List</h1>
+
+    <div role="tablist">
+   <button th:each="statusId, statusIndex : ${statusIds}" th:id="'tab-' + ${statusIndex.index}" th:text="${statusNames[__${statusIndex.index}__]}"
+             th:attr="onclick='showBookList(\'' + ${statusIndex.index} + '\')'">
+    </button>
+    </div>
+
+<div th:each="statusId, statusIndex : ${statusIds}" th:id="'panel-' + ${statusIndex.index}" hidden>
+	<div class="book-list">
+    <div th:each="book : ${bookListByStatus[statusIndex.index]}" class="book">
+        <a th:href="@{'/showDetailById/' + ${book.id}}">
+            <img th:src="@{/} + ${book.imagePath}" th:alt="${book.title + '-Cover'}">
+            <p th:text="${book.title}">The Great Gatsby</p>
+        </a>
+    </div>
+	</div>
+</div>
+
+
+</main>
+<footer th:replace="fragments/footer.html :: footer"></footer>
+</body>
+</html>

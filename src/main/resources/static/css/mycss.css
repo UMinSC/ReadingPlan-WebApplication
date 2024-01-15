@@ -1,0 +1,275 @@
+/* Header */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f8f8f8;
+    padding: 10px 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Logo */
+.logo img {
+    width: 100px;
+    height: auto;
+    margin-right: 10px; /* Adjust margin as needed */
+}
+
+/* Header content */
+.header-content {
+    text-align: right; /* Align text to the right */
+}
+
+.header-content h1,
+.header-content p {
+    margin: 0;
+    color: #333;
+}
+
+.header-content h1 {
+    font-size: 24px;
+    margin-bottom: 5px; /* Add margin between h1 and p */
+}
+
+.header-content p {
+    font-size: 16px;
+}
+
+
+/* Footer styles */
+.footer {
+    background-color: #f8f8f8;
+    padding: 10px 20px;
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    margin-top: 20px;
+}
+
+#footer-copyright {
+    font-size: 10pt;
+    color: #333;
+}
+
+/* Main section styles */
+main {
+    padding: 20px;
+}
+
+h2 {
+    font-size: 24px;
+    margin-bottom: 15px;
+}
+
+section {
+    padding: 10px;
+    border-top: 1px solid #ccc; /* Add top border */
+}
+
+/* Style for paragraph content within sections */
+section p {
+    margin: 0;
+    color: #333;
+}
+
+/* Style for the book list */
+.book-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px; /* Adjust the gap between books */
+    border: 1px solid #ccc;
+  padding: 10px;
+  max-height: 430px; 
+  overflow-y: auto; 
+}
+
+/* Style for each book */
+.book {
+    width: 200px; /* Set the width of each book */
+    text-align: center; /* Center align content */
+}
+
+/* Style for the book image */
+.book img {
+    width: 150px; /* Set a fixed width for the images */
+    height: 200px; /* Set a fixed height for the images */
+    object-fit: cover; /* Ensure the images cover the specified dimensions */
+    border-radius: 5px; /* Optional: Add rounded corners to the images */
+}
+
+/* Style for the book title */
+.book p {
+    margin-top: 5px;
+    font-size: 14px;
+    color: #333;
+}
+
+.success {
+	color: green;
+	background-color: #d4edda;
+	border: 1px solid #c3e6cb;
+	padding: 8px;
+	margin-bottom: 20px;
+}
+
+.error {
+	color: #721c24;
+	background-color: #f8d7da;
+	border: 1px solid #f5c6cb;
+	padding: 8px;
+	margin-bottom: 20px;
+}
+
+
+.success:empty,
+.error:empty {
+	display: none;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between; /* 横向排列并分散对齐 */
+  align-items: center; /* 垂直居中对齐 */
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.container > * {
+  margin: 10px;
+}
+
+.buttons {
+  display: flex;
+  align-items: center;
+  margin-top: 5px;
+}
+
+.buttons input[type="submit"] {
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 5px 10px;
+  margin-left: 10px;
+  color: #fff; /* 文字颜色设置为白色 */
+  background-color: rgb(0, 152, 255); /* 蓝色背景 */
+  border: 1px solid rgb(0, 152, 255); /* 蓝色边框 */
+  cursor: pointer;
+}
+
+.buttons a {
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 5px 10px;
+  margin-left: 10px;
+  color: #fff; /* 文字颜色设置为白色 */
+  background-color: rgb(0, 152, 255); /* 蓝色背景 */
+  border: 1px solid rgb(0, 152, 255); /* 蓝色边框 */
+  cursor: pointer;
+}
+
+.buttons a:hover {
+  background-color: #f0f0f0;
+}
+
+.buttons input[type="submit"]:hover {
+  background-color: #f0f0f0;
+}
+
+
+.form-group {
+	display: flex;
+	align-items: center;
+	margin: 10px;
+}
+
+.form-group label {
+	display: inline-block;
+	min-width: 120px;
+	margin-right: 10px;
+}
+
+p.sub-title {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333; 
+  margin-bottom: 8px; 
+}
+
+.book-table {
+	border-collapse: collapse;
+}
+
+.book-table th,
+.book-table td {
+	text-align: left;
+	padding: 8px;
+}
+
+.book-table td {
+	border: 1px solid #ccc;
+}
+
+/* 表格样式 */
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+table th,
+table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+/* 链接样式 */
+span a {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 2px solid transparent;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 20px;
+  font-size: 14px;
+  color: #333;
+  text-decoration: none;
+  margin: 2px;
+}
+
+span a:hover {
+  background-color: #f0f0f0;
+}
+
+/* 设置 setDate 的链接样式 */
+span a.dateSet {
+  pointer-events: none;
+  color: #ccc;
+}
+
+span a.dateSet:hover {
+  background-color: transparent;
+  cursor: default;
+}
+
+button {
+  border: none;
+  background-color: #f0f0f0;
+  padding: 8px 16px;
+  margin: 4px;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+/* 按钮激活样式 */
+button.active {
+  background-color: #ddd;
+}
+
+
+

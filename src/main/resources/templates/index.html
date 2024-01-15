@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Home</title>
+	<link rel="stylesheet" type="text/css" media="all" href="../static/css/mycss.css" th:href="@{/css/mycss.css}" />
+</head>
+
+<body>
+	<header th:insert="fragments/header.html :: header"></header>
+	<!-- 
+		main_________________________________________________________
+	-->
+	<main>
+		<h2>Home Page</h2>
+		<div th:if="${successMessage}">
+			<div th:text="${successMessage}" class="success"></div>
+		</div>
+		<!-- section -->
+		<section sec:authorize="isAnonymous()">
+			<div class="error">You have not login right here!</div>
+			<div class="container">
+				<div>
+					<p class="buttons">For more actions, please<a th:href="@{/login}">login</a> here!</p>
+				</div>
+				<div>
+					<p class="buttons">New here? Please<a th:href="@{/register}">register</a>.</p>
+				</div>
+			</div>
+		</section>
+		<section class="container">
+			<!--section: Book list for the home page-->
+			<div>
+				<div class="buttonsWithoutFrame">
+					<a sec:authorize="hasRole('CLIENT')" th:href="@{/client/booklist}">
+						<h3>&#x1F4DA; Book Library</h3>
+					</a>
+				</div>
+				<div sec:authorize="hasRole('ADMIN')"  class="container">
+					<h3>&#x1F4DA; Book Library</h3>
+					<div class="buttons">
+					<a th:href="@{/admin/addBook}"> + Add a new book</a>
+					</div>
+				</div>
+				<div class="book-list">
+					<div th:each="book : ${library}" class="book">
+						<a th:href="@{'/showDetailById/'} + ${book.id}">
+							<img th:src="@{/}+${book.imagePath}" th:alt="${book.title} + '-Cover'">
+							<p th:text="${book.title}">The Great Gatsby</p>
+						</a>
+					</div>
+				</div>
+			</div>
+			<!--section: calendar section-->
+			<div sec:authorize="hasRole('CLIENT')" class="calendar">
+				<h3>&#x1F4C5; <span class="date-year" th:text="${setDate.year}"></span> <span class="date-month"
+						th:text="${setDate.month}"></span> </h3>
+				<table>
+					<thead>
+						<tr>
+							<th>Sun</th>
+							<th>Mon</th>
+							<th>Tue</th>
+							<th>Wed</th>
+							<th>Thu</th>
+							<th>Fri</th>
+							<th>Sat</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="sunday : ${calendarSundays}">
+							<td th:each="offset : ${#numbers.sequence(0, 6)}">
+								<span th:with="date=${sunday.plusDays(offset)}">
+									<a th:href="@{'/client/' + ${date.year} + '-' + ${date.monthValue} + '-' + ${date.dayOfMonth}}"
+										th:text="${date.dayOfMonth}">
+									</a>
+								</span>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+	</main>
+	<!-- 
+		footer_________________________________________________________
+	-->
+	<footer th:replace="fragments/footer.html :: footer"></footer>
+</body>
+
+</html>

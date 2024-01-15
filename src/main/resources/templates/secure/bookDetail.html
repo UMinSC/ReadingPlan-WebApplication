@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>Book Detail</title>
+	<link rel="stylesheet" type="text/css" media="all" href="../static/css/mycss.css" th:href="@{/css/mycss.css}" />
+</head>
+
+<body>
+	<header th:insert="fragments/header.html :: header"></header>
+	<!-- 
+		main_________________________________________________________
+	-->
+	<main>
+		<h2>Book Detail</h2>
+		<div th:if="${successMessage}">
+			<div th:text="${successMessage}" class="success"></div>
+		</div>
+		<!-- section -->
+		<section class="container">
+			<div>
+				<h3 th:text="${book.title}"> book name</h3>
+				<img th:src="@{/}+${book.imagePath}" th:alt="${book.title} + '-Cover'">
+			</div>
+			<div>
+				<table class="book-table">
+					<tr>
+						<th>Title</th>
+						<td th:text="${book.title}"></td>
+					</tr>
+					<tr>
+						<th>Author</th>
+						<td th:text="${book.author}"></td>
+					</tr>
+					<tr>
+						<th>ISBN</th>
+						<td th:text="${book.isbn}"></td>
+					</tr>
+					<tr sec:authorize="hasRole('ADMIN')">
+						<th>Price</th>
+						<td th:text="${book.price}"></td>
+					</tr>
+					<tr>
+						<th>Description</th>
+						<td th:text="${book.description}"></td>
+					</tr>
+					<tr>
+						<th>Page</th>
+						<td th:text="${book.totalPage}"></td>
+					</tr>
+				</table>
+				<br>
+				<div sec:authorize="hasRole('ADMIN')" class="buttons">
+					<a th:href="@{/admin/editDetailById/}+${book.id}">Edit</a>
+					<a th:href="@{/admin/deleteBookById/}+${book.id}">Delete</a>
+				</div>
+				<div class="buttons">
+					<a th:href="@{/}">Back to Library</a>
+				</div>
+			</div>
+			<div sec:authorize="hasRole('CLIENT')" >
+				<div th:if=${recordFlag}>
+					<form name="recordForm" method="post" action="#" th:action="@{/client/recordReading}">
+						<input type="hidden" name="bookId" th:value="${book.id}" />
+						<div class="form-group">
+							<label for="currentPage">CurrentPage:</label>
+							<input type="number" id="currentPage" name="currentPage" th:value="${currentPage}"
+								th:min="${currentPage}" th:max="${book.totalPage}" />
+						</div>
+						<input type="submit" th:value="Record" />
+					</form>
+				</div>
+			</div>
+			<div sec:authorize="hasRole('CLIENT')" class="container buttons">
+				<div th:unless=${recordFlag}>
+					<!-- link decided by th:if="${bookStatus == 0} -->
+					<p class = "sub-title" th:if="${bookStatus == 4 or bookStatus == 5}"> You have finished this book ! </p>
+					<div th:if="${bookStatus == 6 }">
+						<p class = "sub-title">This book has been discarded! </p>
+						<a th:href="@{'/client/addToList/0-' + ${book.id} + '-' + ${bookStatus}}">I regret </a>
+					</div>
+					<div th:unless="${bookStatus == 4 or bookStatus == 5 or bookStatus == 6}">
+						<div th:if="${bookStatus == 0}">
+							<p class = "sub-title">This is a new book! </p>
+							<a th:href="@{'/client/addToList/1-' + ${book.id} + '-' + ${bookStatus}}"> Plan to Read in
+								the Future ~~</a>
+							<a th:href="@{'/client/addToList/2-' + ${book.id} + '-' + ${bookStatus}}">Want to Read This
+								Month ~</a>
+						</div>
+						<p class = "sub-title" th:if="${bookStatus == 1}"> You have add this book in your Future list! <a
+								th:href="@{'/client/addToList/2-' + ${book.id} + '-' + ${bookStatus}}">Want to Read This
+								Month ~</a>
+						</p>
+						<p class = "sub-title" th:if="${bookStatus == 2 or bookStatus == 3}"> This book is in this month's plan! <a
+								th:href="@{'/client/addToList/1-' + ${book.id} + '-' + ${bookStatus}}"> Plan to Read in
+								the Future ~~</a>
+						</p>
+						<a th:href="@{'/client/addToList/3-' + ${book.id} + '-' + ${bookStatus}}">Record today!</a>
+						<a th:href="@{'/client/addToList/6-' + ${book.id} + '-' + ${bookStatus}}">I don`t want to read
+							this one!</a>
+					</div>
+				</div>
+			</div>
+		</section>
+	</main>
+	<!-- 
+		footer_________________________________________________________
+	-->
+	<footer th:replace="fragments/footer.html :: footer"></footer>
+</body>
+
+</html>
